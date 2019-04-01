@@ -1,0 +1,33 @@
+Name:           smenu
+Version:        0.9.15
+Release:        1%{?dist}
+Summary:        Terminal utility that acts as a filter by reading words from standard input or from a file and creates an interactive selection window just below the cursor. The selection, once made, is sent to the standard output. More in the wiki
+License:        GPLv2
+URL:            https://github.com/p-gen/smenu
+Source0:        https://github.com/p-gen/smenu/archive/v%{version}.tar.gz
+
+%define _unpackaged_files_terminate_build 0
+
+#BuildRequires: 
+
+%description
+Terminal utility that acts as a filter by reading words from standard input or from a file and creates an interactive selection window just below the cursor. The selection, once made, is sent to the standard output. More in the wiki
+
+%prep
+%setup -q
+
+%build
+./autogen.sh
+%configure
+make %{?_smp_mflags}
+
+%install
+rm -rf %{buildroot}
+%make_install
+find %{buildroot} -type f | sed 's|^%{buildroot}||' > filelist
+grep '/man/' filelist | sed 's/$/*/g' > filelist2
+grep -v '/man/' filelist >> filelist2
+mv filelist2 filelist
+cat filelist
+
+%files -f filelist
