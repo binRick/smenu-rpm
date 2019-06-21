@@ -1,5 +1,5 @@
 Name:           smenu
-Version:        0.9.15
+Version:        __RELEASE_VERSION__
 Release:        1%{?dist}
 Summary:        Terminal utility that acts as a filter by reading words from standard input or from a file and creates an interactive selection window just below the cursor. The selection, once made, is sent to the standard output. More in the wiki
 License:        GPLv2
